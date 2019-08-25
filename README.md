@@ -10,4 +10,4 @@ It's suppossed to integrate the pi in homeassistant using MQTT.
 
 # Configuration
 
-Frontipi is configured via environment variables. To see all configuration options - and their respective default. Take a look at (config/config.go)[the configuration manager]
+Frontipi is configured via environment variables. To see all configuration options - and their respective default. Take a look at [config/config.go](the configuration manager)
