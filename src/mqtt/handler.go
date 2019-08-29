@@ -12,7 +12,7 @@ import (
 var onConnectHandler MQTT.OnConnectHandler = func(client MQTT.Client) {
 	cfg := config.Get()
 
-	if token := client.Publish(fmt.Sprintf("%s/%s", cfg.RootTopic, cfg.AvailTopic), 0, false, cfg.AvailMessage); token.Wait() && token.Error() != nil {
+	if token := client.Publish(fmt.Sprintf("%s/%s", cfg.RootTopic, cfg.AvailTopic), 0, true, cfg.AvailMessage); token.Wait() && token.Error() != nil {
 		panic(token.Error())
 	}
 }
@@ -41,7 +41,7 @@ func Connect() MQTT.Client {
 		WillEnabled:  true,
 		WillPayload:  []byte(cfg.DisconMessage),
 		WillQos:      1,
-		WillRetained: false,
+		WillRetained: true,
 		WillTopic:    fmt.Sprintf("%s/%s", cfg.RootTopic, cfg.AvailTopic),
 	}
 
