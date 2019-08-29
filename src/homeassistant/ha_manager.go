@@ -15,6 +15,7 @@ func createFullTopicName(topic string) string {
 
 // DiscoveryMessage represents a homeassistant MQTT Discovery Message
 type DiscoveryMessage struct {
+	UniqueID            string `json:"unique_id"`
 	CommandTopic        string `json:"command_topic"`
 	Name                string `json:"name"`
 	Icon                string `json:"icon"`
@@ -24,7 +25,6 @@ type DiscoveryMessage struct {
 	AvailabilityTopic   string `json:"availability_topic"`
 	PayloadAvailable    string `json:"payload_available"`
 	PayloadNotAvailable string `json:"payload_not_available"`
-	Device              Device `json:"device"`
 }
 
 //Device represents a homeassistant MQTT Device class
@@ -40,6 +40,7 @@ type Device struct {
 func CreateDiscoveryMessage() string {
 	cfg := config.Get()
 	bytes, err := json.Marshal(DiscoveryMessage{
+		"frontipi-001-switch",
 		createFullTopicName(cfg.CommandTopic),
 		"frontipi_display",
 		"mdi:monitor",
@@ -49,13 +50,6 @@ func CreateDiscoveryMessage() string {
 		createFullTopicName(cfg.AvailTopic),
 		cfg.AvailMessage,
 		cfg.DisconMessage,
-		Device{
-			"frontipi-001",
-			"Raspberry Pi Model 3 incl. 7inch TouchScreen",
-			"custom",
-			"frontipi",
-			"0.0.1",
-		},
 	})
 	if err != nil {
 		panic(err)
